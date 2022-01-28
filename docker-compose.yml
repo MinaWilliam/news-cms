@@ -1,11 +1,11 @@
-version: '3.7'
+version: '3'
 
 services:
   news-app:
     build:
-      context: .
-      dockerfile: ./docker/local/app/Dockerfile
-    restart: unless-stopped
+      context: ./docker/local/app
+      dockerfile: Dockerfile
+    env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_NAME: ${DATABASE_NAME}
@@ -14,7 +14,7 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - ./app:/srv/app
+      - ./:/srv/app
     ports:
       - '1337:1337'
     depends_on:
@@ -24,15 +24,13 @@ services:
 
   news-database:
     image: postgres
-    restart: unless-stopped
+    env_file: .env
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./docker/local/postgres/data:/var/lib/postgresql/data
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${DATABASE_NAME}", "-U", "${DATABASE_USERNAME}" ]
     networks:
       - internal
 
