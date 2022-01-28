@@ -1,13 +1,19 @@
-FROM strapi/base
+FROM node:16
+ARG NODE_ENV=development
 
-WORKDIR /srv/app
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY yarn.lock ./
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 RUN yarn install
 
-ENV NODE_ENV development
+COPY . .
+
+RUN yarn build
 
 EXPOSE 1337
 
-RUN chmod a+x /srv/app/run.sh
-
-CMD ["/srv/app/run.sh"]
+CMD ["yarn", "develop"]

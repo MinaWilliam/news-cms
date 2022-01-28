@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  news-app:
+  app:
     build:
-      context: ./docker/local/app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/local/app/Dockerfile
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
@@ -14,15 +14,15 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - ./:/srv/app
+      - ./:/usr/src/app
     ports:
       - '1337:1337'
     depends_on:
-      - news-database
+      - database
     networks:
       - internal
 
-  news-database:
+  database:
     image: postgres
     env_file: .env
     environment:
