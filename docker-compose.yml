@@ -40,7 +40,7 @@ services:
     healthcheck:
       test: ["CMD", "pg_isready", "-q", "-d", "${DATABASE_NAME}", "-U", "${DATABASE_USERNAME}"]
     volumes:
-      - ./docker/local/postgres/data:/var/lib/postgresql/data/
+      - newspgsql:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -50,3 +50,7 @@ networks:
   news:
     name: News
     driver: bridge
+
+volumes:
+  newspgsql:
+    driver: local
