@@ -30,11 +30,13 @@
     },
     "featured": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "private": true
     },
     "viewsCount": {
       "type": "biginteger",
-      "default": "0"
+      "default": "0",
+      "private": true
     }
   }
 }
