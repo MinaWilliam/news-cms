@@ -1,0 +1,39 @@
+{
+  "paths": {
+    "/articles": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "featured",
+            "description": "Featured articles only (default: null)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "path",
+            "name": "_q",
+            "description": "Search query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "pagination[page]",
+            "description": "Page number (default: 0)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
